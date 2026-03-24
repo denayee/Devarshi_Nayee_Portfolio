@@ -79,7 +79,7 @@ export default function ProjectDetailModal({ project, onClose }: ProjectDetailMo
 
         <div className="grid max-h-[92vh] lg:grid-cols-[1.1fr_0.9fr]">
           <div className="border-b border-[rgba(255,255,255,0.06)] p-5 md:p-8 lg:border-b-0 lg:border-r">
-            <div className="overflow-hidden rounded-[24px] border border-[rgba(255,255,255,0.06)] bg-[rgba(255,255,255,0.02)]">
+            <div className="group/gallery relative overflow-hidden rounded-[24px] border border-[rgba(255,255,255,0.06)] bg-[rgba(255,255,255,0.02)]">
               <div className="aspect-[16/10]">
                 <AppImage
                   src={activeImage.src}
@@ -90,13 +90,25 @@ export default function ProjectDetailModal({ project, onClose }: ProjectDetailMo
                   unoptimized
                 />
               </div>
-            </div>
-
-            <div className="mt-4 rounded-[22px] border border-[rgba(255,255,255,0.06)] bg-[rgba(255,255,255,0.02)] px-4 py-3">
-              <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-primary">
-                {activeImage.title}
-              </p>
-              <p className="mt-2 text-sm leading-relaxed text-fg-muted">{activeImage.caption}</p>
+              
+              {project.gallery.length > 1 && (
+                <>
+                  <button
+                    onClick={() => setActiveImageIndex((prev) => (prev === 0 ? project.gallery.length - 1 : prev - 1))}
+                    className="absolute left-4 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-[rgba(255,255,255,0.1)] bg-[rgba(10,8,6,0.6)] text-fg opacity-0 backdrop-blur-md transition-all hover:bg-[rgba(255,255,255,0.1)] group-hover/gallery:opacity-100"
+                    aria-label="Previous image"
+                  >
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+                  </button>
+                  <button
+                    onClick={() => setActiveImageIndex((prev) => (prev === project.gallery.length - 1 ? 0 : prev + 1))}
+                    className="absolute right-4 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-[rgba(255,255,255,0.1)] bg-[rgba(10,8,6,0.6)] text-fg opacity-0 backdrop-blur-md transition-all hover:bg-[rgba(255,255,255,0.1)] group-hover/gallery:opacity-100"
+                    aria-label="Next image"
+                  >
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+                  </button>
+                </>
+              )}
             </div>
 
             <div className="mt-4 grid grid-cols-3 gap-3">
@@ -105,7 +117,7 @@ export default function ProjectDetailModal({ project, onClose }: ProjectDetailMo
 
                 return (
                   <button
-                    key={`${project.id}-${image.title}`}
+                    key={`${project.id}-img-${index}`}
                     type="button"
                     onClick={() => setActiveImageIndex(index)}
                     className={`overflow-hidden rounded-[18px] border transition-all duration-200 ${
@@ -190,12 +202,12 @@ export default function ProjectDetailModal({ project, onClose }: ProjectDetailMo
               </div>
             </div>
 
-            <div className="mt-8">
+            <div className="mt-8 flex flex-wrap gap-4">
               <a
                 href={project.repoUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-primary inline-flex items-center gap-3 text-sm"
+                className="btn-primary inline-flex items-center gap-3 text-sm transition-all duration-200"
                 aria-label={`Open ${project.title} GitHub repository`}
               >
                 <svg
@@ -209,6 +221,21 @@ export default function ProjectDetailModal({ project, onClose }: ProjectDetailMo
                 </svg>
                 Open Git Repo
               </a>
+              {project.liveUrl && (
+                <a
+                  href={project.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-outline inline-flex items-center gap-3 text-sm transition-all duration-200"
+                  aria-label={`Visit ${project.title} live site`}
+                  style={{ borderColor: 'rgba(255,255,255,0.1)', color: 'var(--color-fg)' }}
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line>
+                  </svg>
+                  Visit Live Site
+                </a>
+              )}
             </div>
           </div>
         </div>

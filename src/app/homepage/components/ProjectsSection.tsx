@@ -15,6 +15,8 @@ interface GitHubRepo {
   forks_count: number;
   topics: string[];
   updated_at: string;
+  languages_url?: string;
+  all_languages?: string[];
 }
 
 const LANG_COLORS: Record<string, string> = {
@@ -135,9 +137,22 @@ function ProjectCard({
           'A project by Devarshi - open the popup for details and GitHub access.'}
       </p>
 
-      {repo.topics.length > 0 && (
+      {(repo.all_languages || repo.language || repo.topics.length > 0) && (
         <div className="flex flex-wrap gap-1.5 mb-5">
-          {repo.topics.slice(0, 4).map((topic) => (
+          {repo.all_languages && repo.all_languages.length > 0 ? (
+            repo.all_languages.map((lang) => (
+              <span key={`lang-${lang}`} className="tech-tag" style={{ border: `1px solid ${LANG_COLORS[lang] || '#8A7F74'}60`, color: LANG_COLORS[lang] || '#8A7F74' }}>
+                {lang}
+              </span>
+            ))
+          ) : (
+            repo.language && !repo.topics.some(t => t.toLowerCase() === repo.language?.toLowerCase()) && (
+              <span className="tech-tag" style={{ border: `1px solid ${LANG_COLORS[repo.language] || '#8A7F74'}60`, color: LANG_COLORS[repo.language] || '#8A7F74' }}>
+                {repo.language}
+              </span>
+            )
+          )}
+          {repo.topics.filter(topic => !(repo.all_languages || []).some(lang => lang.toLowerCase() === topic.toLowerCase())).map((topic) => (
             <span key={topic} className="tech-tag">
               {topic}
             </span>
@@ -197,7 +212,8 @@ export default function ProjectsSection() {
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<string>('All');
   const [activeProjectId, setActiveProjectId] = useState<number | null>(null);
-  const FILTERS = ['All', 'Python', 'TypeScript', 'JavaScript'];
+  
+  const dynamicFilters = ['All', ...Array.from(new Set(repos.flatMap((r) => r.all_languages || (r.language ? [r.language] : [])).filter(Boolean))) as string[]];
 
   useEffect(() => {
     const fetchRepos = async () => {
@@ -210,10 +226,34 @@ export default function ProjectsSection() {
         );
         if (!res.ok) throw new Error('API failed');
         const data: GitHubRepo[] = await res.json();
-        const filtered = data
+        let filtered = data
           .filter((repo) => !repo.name.startsWith('.') && repo.description)
           .sort((a, b) => b.stargazers_count - a.stargazers_count)
           .slice(0, 9);
+          
+        filtered = await Promise.all(
+          filtered.map(async (repo) => {
+            try {
+              if (repo.languages_url) {
+                const langRes = await fetch(repo.languages_url);
+                if (langRes.ok) {
+                  const langData = await langRes.json();
+                  repo.all_languages = Object.keys(langData);
+                }
+              } else {
+                const langRes = await fetch(`https://api.github.com/repos/denayee/${repo.name}/languages`);
+                if (langRes.ok) {
+                  const langData = await langRes.json();
+                  repo.all_languages = Object.keys(langData);
+                }
+              }
+            } catch (e) {
+              console.error(e);
+            }
+            return repo;
+          })
+        );
+        
         setRepos(filtered.length > 0 ? filtered : []);
       } catch {
         setRepos([]);
@@ -225,7 +265,7 @@ export default function ProjectsSection() {
     fetchRepos();
   }, []);
 
-  const filteredRepos = filter === 'All' ? repos : repos.filter((repo) => repo.language === filter);
+  const filteredRepos = filter === 'All' ? repos : repos.filter((repo) => (repo.all_languages || []).includes(filter) || repo.language === filter);
   const activeRepo = repos.find((repo) => repo.id === activeProjectId) || null;
   const activeProject = activeRepo ? getProjectDetailFromRepo(activeRepo) : null;
 
@@ -271,7 +311,7 @@ export default function ProjectsSection() {
             </div>
 
             <div className="flex items-center gap-2 flex-wrap">
-              {FILTERS.map((currentFilter) => (
+              {dynamicFilters.map((currentFilter) => (
                 <button
                   key={currentFilter}
                   onClick={() => setFilter(currentFilter)}

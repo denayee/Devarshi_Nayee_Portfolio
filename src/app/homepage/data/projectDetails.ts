@@ -28,6 +28,7 @@ export interface ProjectDetail {
   features: string[];
   stack: string[];
   repoUrl: string;
+  liveUrl?: string;
   gallery: ProjectGalleryImage[];
   accent: string;
 }
@@ -48,8 +49,10 @@ interface ProjectContent {
   features: string[];
   stack: string[];
   repoUrl?: string;
+  liveUrl?: string;
   accent: string;
-  frames: ProjectFrame[];
+  frames?: ProjectFrame[];
+  images?: { src: string; alt?: string; title: string; caption: string }[];
 }
 
 const DEFAULT_REPO_URL = 'https://github.com/denayee';
@@ -65,7 +68,295 @@ const LANGUAGE_ACCENTS: Record<string, string> = {
   Go: '#00ADD8',
 };
 
-const PROJECT_CONTENT: ProjectContent[] = [];
+const PROJECT_CONTENT: ProjectContent[] = [
+  
+  // 💡 TEMPLATE: Uncomment and copy this block for each GitHub repository you want to customize.
+  // The 'aliases' array must include the exact name of your GitHub repository.
+  {
+  id: 'stackit_qa_platform',
+  aliases: ['StackIt-A-Minimal-Q-A-Forum-Platform-dev '],
+  title: 'StackIt – Minimal Q&A Forum Platform',
+  headline: 'A lightweight developer-focused Q&A platform inspired by Stack Overflow.',
+  summary: 'A full-stack discussion platform where users can ask questions, post answers, and engage in knowledge sharing.',
+  overview: 'StackIt is designed to replicate a simplified Q&A ecosystem. It enables users to create posts, respond to queries, and build a collaborative knowledge-sharing community.',
+  impact: 'Helps developers learn, share knowledge, and build communities similar to Stack Overflow in a simplified way.',
+  features: [
+    'Ask and answer questions',
+    'User authentication system',
+    'Clean and minimal UI',
+    'Thread-based discussions'
+  ],
+  stack: ['React', 'Node.js', 'MongoDB'],
+  accent: '#FF6B6B',
+  images: [
+    {
+      src: '/test-image.png',
+      title: 'Q&A Interface',
+      caption: 'Main discussion and question listing UI'
+    }
+  ]
+},
+{
+  id: 'devarshi_portfolio',
+  aliases: ['Devarshi_Nayee_Portfolio '],
+  title: 'Developer Portfolio Website',
+  headline: 'Modern interactive portfolio showcasing projects and skills.',
+  summary: 'A personal portfolio website to highlight projects, skills, and achievements with a modern UI design.',
+  overview: 'Built to create a strong online presence, this portfolio includes project showcases, smooth animations, and responsive layouts.',
+  impact: 'Helps attract recruiters and freelance clients by presenting work professionally.',
+  features: [
+    'Project showcase section',
+    'Responsive design',
+    'Smooth animations',
+    'Contact integration'
+  ],
+  stack: ['React', 'Tailwind CSS', 'JavaScript'],
+  accent: '#FFD166',
+  images: [
+    {
+      src: '/assets/images/portfolio.png',
+      title: 'Homepage',
+      caption: 'Landing page of the portfolio'
+    }
+  ]
+},
+{
+  id: 'ez_appointify',
+  aliases: ['EZ-appointify'], 
+  title: 'EZ Appointify – Appointment Booking System',
+  headline: 'Smart appointment scheduling platform for seamless bookings.',
+  summary: 'A web-based system allowing users to book, manage, and track appointments easily.',
+  overview: 'Designed for businesses and professionals, this platform streamlines scheduling with user-friendly booking and management features.',
+  impact: 'Reduces manual scheduling effort and improves appointment management efficiency.',
+  features: [
+    'Online appointment booking',
+    'Admin dashboard',
+    'Time slot management',
+    'User notifications'
+  ],
+  stack: ['React', 'Node.js', 'MongoDB'],
+  accent: '#06D6A0',
+  images: [
+    {
+      src: '/assets/images/EZ-APPIONTIFY VIDEO 1.png',
+      alt: 'EZ Appointify',
+      title: 'Booking System4',
+      caption: 'Appointment scheduling interface'
+    },
+    {
+      src: '/assets/images/EZ-APPIONTIFY VIDEO 2.png',
+      alt: 'EZ Appointify2',
+      title: 'Booking System3',
+      caption: 'Appointment scheduling interface'
+    },
+    {
+      src: '/assets/images/EZ-APPIONTIFY VIDEO 3.png',
+      alt: 'EZ Appointify3',
+      title: 'Booking System2',
+      caption: 'Appointment scheduling interface'
+    },
+    {
+      src: '/assets/images/EZ-APPIONTIFY VIDEO 4.png',
+      alt: 'EZ Appointify4',
+      title: 'Booking System1',
+      caption: 'Appointment scheduling interface'
+    },
+    {
+      src: '/assets/images/EZ-APPIONTIFY VIDEO 5.png',
+      alt: 'EZ Appointify5',
+      title: 'Booking System1',
+      caption: 'Appointment scheduling interface'
+    },
+    {
+      src: '/assets/images/EZ-APPIONTIFY VIDEO 6.png',
+      alt: 'EZ Appointify6',
+      title: 'Booking System1',
+      caption: 'Appointment scheduling interface'
+    },
+  ]
+},
+{
+  id: 'ayura_ai',
+  aliases: ['ayuraAI'],
+ title: 'AyuraAI – Personalized Beauty Recommendation System',
+  headline: 'AI-powered platform that recommends beauty products based on skin and hair type.',
+  summary: 'AyuraAI is a smart recommendation system that suggests personalized skincare and haircare products using user-specific inputs.',
+  overview: 'This project focuses on delivering customized beauty solutions by analyzing user inputs such as skin type, hair condition, and concerns. Based on this data, the system intelligently recommends suitable products to enhance user experience and effectiveness.',
+  impact: 'Helps users choose the right beauty products without confusion, saving time and improving skincare and haircare results through personalization.',
+  features: [
+    'Personalized product recommendations',
+    'Skin type and hair type analysis',
+    'User-friendly input system',
+    'Smart suggestion engine'
+  ],
+  stack: ['Python', 'Machine Learning', 'Flask'],
+  liveUrl: 'https://ayuraai.onrender.com', // <-- REPLACE THIS WITH YOUR REAL LINK
+  accent: '#FFAFCC',
+  images: [
+    {
+      src: '/assets/images/AyuraAI _ 1.png',
+      title: 'Recommendation Interface1',
+      caption: 'Personalized beauty product suggestions based on user input'
+    },
+    {
+      src: '/assets/images/AyuraAI _ 2.png',
+      title: 'Recommendation Interface2',
+      caption: 'Personalized beauty product suggestions based on user input'
+    },
+    {
+      src: '/assets/images/AyuraAI _ 3.png',
+      title: 'Recommendation Interface3',
+      caption: 'Personalized beauty product suggestions based on user input'
+    },
+    {
+      src: '/assets/images/AyuraAI _4.png',
+      title: 'Recommendation Interface4',
+      caption: 'Personalized beauty product suggestions based on user input'
+    },
+    {
+      src: '/assets/images/AyuraAI _ 5.png',
+      title: 'Recommendation Interface5',
+      caption: 'Personalized beauty product suggestions based on user input'
+    },
+    {
+      src: '/assets/images/AyuraAI _ 6.png',
+      title: 'Recommendation Interface6',
+      caption: 'Personalized beauty product suggestions based on user input'
+    },
+  ]
+},
+{
+  id: 'recipe_platform',
+  aliases: ['Recipe-Sharing-web-devlopment-platform'],
+  title: 'Recipe Sharing Web Platform',
+  headline: 'A community-driven platform to share and discover recipes.',
+  summary: 'A web application where users can upload, explore, and manage recipes.',
+  overview: 'This platform allows food lovers to share their recipes and discover new dishes from others.',
+  impact: 'Encourages community interaction and knowledge sharing in cooking.',
+  features: [
+    'Upload recipes',
+    'Browse recipes',
+    'User-friendly interface',
+    'Search functionality'
+  ],
+  stack: ['React', 'Node.js', 'MongoDB'],
+  accent: '#F4A261',
+  images: [
+    {
+      src: '/assets/images/RecipeShare_1.png',
+      title: 'Recipe Feed1',
+      caption: 'List of recipes shared by users'
+    },
+    { 
+      src: '/assets/images/RecipeShare_2.png',
+      title: 'Recipe Feed2',
+      caption: 'List of recipes shared by users'  
+    },
+    { 
+      src: '/assets/images/RecipeShare_3.png',
+      title: 'Recipe Feed3',
+      caption: 'List of recipes shared by users'  
+    }
+  ]
+},
+{
+  id: 'society_management',
+  aliases: ['Society-Management-System'],
+  title: 'Society Management System',
+  headline: 'Digital solution for managing residential societies.',
+  summary: 'A system designed to manage residents, payments, and society operations efficiently.',
+  overview: 'This platform simplifies administrative tasks such as resident records, maintenance tracking, and communication.',
+  impact: 'Improves efficiency and transparency in society management.',
+  features: [
+    'Resident management',
+    'Maintenance tracking',
+    'Admin controls',
+    'Record keeping'
+  ],
+  stack: ['PHP', 'MySQL', 'JavaScript'],
+  accent: '#8D99AE',
+  images: [
+    {
+      src: '/assets/images/sociaty_1.jpg',
+      title: 'Dashboard1',
+      caption: 'Admin dashboard for management'
+    },
+    {
+      src: '/assets/images/sociaty_2.jpg',
+      title: 'Dashboard2',
+      caption: 'Admin dashboard for management'
+    },
+    {
+      src: '/assets/images/sociaty_3.jpg',
+      title: 'Dashboard3',
+      caption: 'Admin dashboard for management'
+    }
+  ]
+},
+{
+  id: 'expense_tracker',
+  aliases: ['php-expense-tracker'],
+  title: 'Expense Tracker System',
+  headline: 'Simple and effective personal finance tracking application.',
+  summary: 'A PHP-based system to track daily expenses and manage personal finances.',
+  overview: 'Users can record expenses, categorize spending, and monitor financial habits.',
+  impact: 'Helps users manage money efficiently and track spending patterns.Also download monthly report in pdf.',
+  features: [
+    'Add and track expenses',
+    'Category-wise tracking',
+    'Simple dashboard',
+    'Data storage with MySQL',
+    'Download monthly report in pdf'
+  ],
+  stack: ['PHP', 'MySQL', 'HTML', 'CSS'],
+  accent: '#2A9D8F',
+  images: [
+    {
+      src: '/assets/images/bugget_buddy_1.png',
+      title: 'Expense Dashboard1',
+      caption: 'Overview of expenses and categories'
+    },
+    {
+      src: '/assets/images/bugget_buddy_2.png',
+      title: 'Expense Dashboard2',
+      caption: 'Overview of expenses and categories'
+    },
+    {
+      src: '/assets/images/bugget_buddy_3.png',
+      title: 'Expense Dashboard3',
+      caption: 'Overview of expenses and categories'
+    }
+  ]
+},
+{
+  id: 'gan_story_converter',
+  aliases: ['gan-ai-story-converter'],
+  title: 'GAN AI Story Converter',
+  headline: 'AI-powered system to convert input text into creative story formats with audio output.',
+  summary: 'A generative AI-based application that transforms text into creative stories with audio output. also download story audio.',
+  overview: 'Uses AI techniques like GAN or NLP models to generate engaging narratives from user input.',
+  impact: 'Demonstrates advanced AI creativity and content generation capabilities with audio output.',
+  features: [
+    'AI-generated storytelling',
+    'User input processing',
+    'Creative output generation',
+    'Interactive UI',
+    'Audio output',
+    'Download story audio'
+  ],
+  stack: ['Python', 'Machine Learning', 'NLP'],
+  accent: '#9B5DE5',
+  liveUrl : 'https://gan-ai-story-converter.vercel.app/',
+  images: [
+    {
+      src: '/assets/images/gan ai story converter_1.png', 
+      title: 'Story Output',
+      caption: 'AI-generated story interface'
+    }
+  ]
+}
+  
+];
 
 function toLookupKey(value: string) {
   return value
@@ -145,6 +436,20 @@ function buildProjectFrameImage(
 }
 
 function withGallery(content: ProjectContent, repoUrl?: string): ProjectDetail {
+  const gallery = content.images && content.images.length > 0
+    ? content.images.map(img => ({
+        src: img.src,
+        alt: img.alt || `${content.title} - ${img.title}`,
+        title: img.title,
+        caption: img.caption,
+      }))
+    : (content.frames || []).map((frame, index) => ({
+        src: buildProjectFrameImage(content.title, frame, content.accent, index),
+        alt: `${content.title} - ${frame.title}`,
+        title: frame.title,
+        caption: frame.caption,
+      }));
+
   return {
     id: content.id,
     title: content.title,
@@ -155,13 +460,9 @@ function withGallery(content: ProjectContent, repoUrl?: string): ProjectDetail {
     features: content.features,
     stack: content.stack,
     repoUrl: repoUrl || content.repoUrl || DEFAULT_REPO_URL,
+    liveUrl: content.liveUrl,
     accent: content.accent,
-    gallery: content.frames.map((frame, index) => ({
-      src: buildProjectFrameImage(content.title, frame, content.accent, index),
-      alt: `${content.title} - ${frame.title}`,
-      title: frame.title,
-      caption: frame.caption,
-    })),
+    gallery,
   };
 }
 

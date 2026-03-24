@@ -111,7 +111,7 @@ function ProjectCard({
           href={repo.html_url}
           target="_blank"
           rel="noopener noreferrer"
-          className="w-8 h-8 border border-[rgba(255,255,255,0.08)] flex items-center justify-center text-fg-muted hover:text-primary hover:border-primary transition-all duration-200 rounded-sm group/link"
+          className="w-8 h-8 border border-border flex items-center justify-center text-fg-muted hover:text-primary hover:border-primary transition-all duration-200 rounded-sm group/link"
           aria-label={`Open ${repo.name} on GitHub`}
           onClick={(event) => event.stopPropagation()}
           onKeyDown={(event) => event.stopPropagation()}
@@ -160,7 +160,7 @@ function ProjectCard({
         </div>
       )}
 
-      <div className="flex items-center justify-between pt-4 border-t border-[rgba(255,255,255,0.05)]">
+      <div className="flex items-center justify-between pt-4 border-t border-border">
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-1.5 text-fg-muted">
             <svg
@@ -210,6 +210,7 @@ function ProjectCard({
 export default function ProjectsSection() {
   const [repos, setRepos] = useState<GitHubRepo[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [filter, setFilter] = useState<string>('All');
   const [activeProjectId, setActiveProjectId] = useState<number | null>(null);
   
@@ -218,44 +219,21 @@ export default function ProjectsSection() {
   useEffect(() => {
     const fetchRepos = async () => {
       try {
-        const res = await fetch(
-          'https://api.github.com/users/denayee/repos?sort=updated&per_page=12',
-          {
-            headers: { Accept: 'application/vnd.github.mercy-preview+json' },
+        // Our internal API runs at CDN speeds because it's edge cached via Next.js
+        const res = await fetch('/api/projects');
+
+        if (!res.ok) {
+          if (res.status === 503) {
+            throw new Error('GitHub API rate limit exceeded.');
           }
-        );
-        if (!res.ok) throw new Error('API failed');
-        const data: GitHubRepo[] = await res.json();
-        let filtered = data
-          .filter((repo) => !repo.name.startsWith('.') && repo.description)
-          .sort((a, b) => b.stargazers_count - a.stargazers_count)
-          .slice(0, 9);
-          
-        filtered = await Promise.all(
-          filtered.map(async (repo) => {
-            try {
-              if (repo.languages_url) {
-                const langRes = await fetch(repo.languages_url);
-                if (langRes.ok) {
-                  const langData = await langRes.json();
-                  repo.all_languages = Object.keys(langData);
-                }
-              } else {
-                const langRes = await fetch(`https://api.github.com/repos/denayee/${repo.name}/languages`);
-                if (langRes.ok) {
-                  const langData = await langRes.json();
-                  repo.all_languages = Object.keys(langData);
-                }
-              }
-            } catch (e) {
-              console.error(e);
-            }
-            return repo;
-          })
-        );
-        
-        setRepos(filtered.length > 0 ? filtered : []);
-      } catch {
+          throw new Error(`API failed: ${res.status}`);
+        }
+
+        const data = await res.json();
+        setRepos(Array.isArray(data) && data.length > 0 ? data : []);
+      } catch (err: any) {
+        console.error('Failed to load GitHub data:', err);
+        setError(err.message || 'Failed to load projects');
         setRepos([]);
       } finally {
         setLoading(false);
@@ -318,7 +296,7 @@ export default function ProjectsSection() {
                   className={`font-mono text-xs px-4 py-2 rounded-sm border transition-all duration-200 ${
                     filter === currentFilter
                       ? 'border-primary bg-primary-dim text-primary'
-                      : 'border-[rgba(255,255,255,0.08)] text-fg-muted hover:border-primary hover:text-primary'
+                      : 'border-border text-fg-muted hover:border-primary hover:text-primary'
                   }`}
                   aria-pressed={filter === currentFilter}
                 >
@@ -333,7 +311,7 @@ export default function ProjectsSection() {
               {[...Array(6)].map((_, index) => (
                 <div
                   key={index}
-                  className="h-64 rounded-sm border border-[rgba(255,255,255,0.06)] bg-[rgba(255,255,255,0.02)]"
+                  className="h-64 rounded-sm border border-border bg-surface"
                   style={{
                     animation: 'pulseWarm 1.5s ease-in-out infinite',
                     animationDelay: `${index * 100}ms`,
@@ -341,6 +319,15 @@ export default function ProjectsSection() {
                   aria-hidden="true"
                 />
               ))}
+            </div>
+          ) : error ? (
+            <div className="text-center py-20 border border-[rgba(255,107,43,0.3)] bg-[rgba(255,107,43,0.05)] rounded-lg">
+              <span className="text-primary font-mono text-xl mb-3 block">Oops! {error}</span>
+              <p className="text-fg-muted max-w-lg mx-auto">
+                {error.includes('rate limit')
+                  ? "I've hit GitHub's unauthenticated API rate limit during local development. Please provide a NEXT_PUBLIC_GITHUB_TOKEN in your .env or check back later."
+                  : "Could not fetch dynamic repository data from GitHub right now. Please try again later."}
+              </p>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

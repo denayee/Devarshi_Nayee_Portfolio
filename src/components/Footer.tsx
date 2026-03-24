@@ -3,7 +3,7 @@ import AppLogo from '@/components/ui/AppLogo';
 
 export default function Footer() {
   return (
-    <footer className="border-t border-[rgba(255,255,255,0.06)] py-8">
+    <footer className="border-t border-border py-8">
       <div className="max-w-7xl mx-auto px-6">
         {/* Pattern 1: Linear Single-Row */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
@@ -44,7 +44,7 @@ export default function Footer() {
               href="https://github.com/denayee"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-9 h-9 rounded-lg border border-[rgba(255,255,255,0.08)] flex items-center justify-center text-fg-muted hover:text-primary hover:border-primary transition-all duration-200"
+              className="w-9 h-9 rounded-lg border border-border flex items-center justify-center text-fg-muted hover:text-primary hover:border-primary transition-all duration-200"
               aria-label="GitHub"
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -56,7 +56,7 @@ export default function Footer() {
               href="https://www.linkedin.com/in/devarshi-nayee-b1aa63279/"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-9 h-9 rounded-lg border border-[rgba(255,255,255,0.08)] flex items-center justify-center text-fg-muted hover:text-primary hover:border-primary transition-all duration-200"
+              className="w-9 h-9 rounded-lg border border-border flex items-center justify-center text-fg-muted hover:text-primary hover:border-primary transition-all duration-200"
               aria-label="LinkedIn"
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">

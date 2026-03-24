@@ -79,7 +79,7 @@ export default function LoadingScreen() {
       </p>
 
       {/* Progress bar */}
-      <div className="w-56 h-[2px] bg-[rgba(255,255,255,0.05)] overflow-hidden rounded-full">
+      <div className="w-56 h-[2px] bg-surface-hover overflow-hidden rounded-full">
         <div
           className="loader-bar h-full rounded-full"
           style={{ width: `${progress}%`, transition: 'width 0.3s cubic-bezier(0.16, 1, 0.3, 1)' }}

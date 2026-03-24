@@ -10,7 +10,8 @@ const ParticleField = dynamic(() => import('./ParticleField'), {
 
 function useScrambleText(finalText: string, trigger: boolean) {
   const [displayed, setDisplayed] = useState(finalText);
-  const chars = '!<>-_\\/[]{}-=+*^?#@$%&';
+  // Using uniform upper-case letters drastically reduces horizontal layout shifting compared to symbols
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
   useEffect(() => {
     if (!trigger) return;
@@ -21,16 +22,19 @@ function useScrambleText(finalText: string, trigger: boolean) {
         finalText
           .split('')
           .map((char, idx) => {
-            if (idx < iteration) return finalText[idx];
+            if (idx < Math.floor(iteration)) return finalText[idx];
             if (char === ' ') return ' ';
             return chars[Math.floor(Math.random() * chars.length)];
           })
           .join('')
       );
 
-      if (iteration >= finalText.length) clearInterval(interval);
-      iteration += 0.5;
-    }, 30);
+      if (iteration >= finalText.length) {
+        clearInterval(interval);
+        setDisplayed(finalText); // Ensure exact final text settles
+      }
+      iteration += 1 / 4; // 4 ticks (140ms) per character
+    }, 35);
 
     return () => clearInterval(interval);
   }, [trigger, finalText]);
@@ -178,10 +182,10 @@ export default function HeroSection() {
               <h1
                 className="font-black text-fg leading-none select-none"
                 style={{
-                  fontSize: 'clamp(5rem, 14vw, 11rem)',
+                  fontSize: 'clamp(2rem, 8vw, 8rem)',
                   letterSpacing: '-0.05em',
                   lineHeight: '0.9',
-                  animation: 'slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both',
+                  animation: 'slideUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both',
                 }}
                 aria-label="Devarshi Nayee"
               >
@@ -192,7 +196,7 @@ export default function HeroSection() {
               <div
                 className="absolute inset-0 font-black leading-none select-none pointer-events-none"
                 style={{
-                  fontSize: 'clamp(5rem, 14vw, 11rem)',
+                  fontSize: 'clamp(2rem, 8vw, 8rem)',
                   letterSpacing: '-0.05em',
                   lineHeight: '0.9',
                   WebkitTextStroke: '1px rgba(255,107,43,0.15)',
@@ -211,10 +215,10 @@ export default function HeroSection() {
               style={{ animation: 'slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both' }}
             >
               <div className="w-12 h-[2px] bg-primary" />
-              <div className="flex items-center gap-3">
-                <span className="font-mono text-base md:text-xl text-fg-muted">Building</span>
+              <div className="flex items-center gap-2 md:gap-3 flex-wrap">
+                <span className="font-mono text-sm md:text-xl text-fg-muted">Building</span>
                 <span
-                  className="font-mono text-base md:text-xl text-primary min-w-[200px]"
+                  className="font-mono text-sm md:text-xl text-primary min-w-[200px]"
                   style={{ textShadow: '0 0 20px rgba(255,107,43,0.6)' }}
                 >
                   {typedText}
@@ -228,7 +232,7 @@ export default function HeroSection() {
             </div>
 
             <p
-              className="text-base md:text-lg text-fg-muted max-w-xl mb-10 leading-relaxed"
+              className="text-base md:text-lg text-fg-muted max-w-sm sm:max-w-md md:max-w-xl mb-10 leading-relaxed pr-4 sm:pr-0"
               style={{ animation: 'slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.8s both' }}
             >
               Computer engineering student crafting{' '}
@@ -238,19 +242,19 @@ export default function HeroSection() {
             </p>
 
             <div
-              className="flex flex-col sm:flex-row gap-4 mb-12"
+              className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-12 items-start"
               style={{ animation: 'slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1s both' }}
             >
               <button
                 onClick={scrollToProjects}
-                className="btn-primary text-sm font-bold tracking-wide px-8 py-4"
+                className="btn-primary text-xs sm:text-sm font-bold tracking-wide px-6 py-3 sm:px-8 sm:py-4"
                 aria-label="View projects"
               >
                 View Projects &rarr;
               </button>
               <button
                 onClick={scrollToContact}
-                className="btn-outline text-sm font-semibold tracking-wide px-8 py-4"
+                className="btn-outline text-xs sm:text-sm font-bold tracking-wide px-6 py-3 sm:px-8 sm:py-4"
                 aria-label="Contact me"
               >
                 Let&apos;s Talk

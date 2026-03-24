@@ -39,14 +39,14 @@ export default function ProjectDetailModal({ project, onClose }: ProjectDetailMo
 
   return (
     <div
-      className="fixed inset-0 z-[80] bg-[rgba(7,5,3,0.82)] backdrop-blur-md p-4 md:p-6"
+      className="fixed inset-0 z-[80] bg-bg-secondary/90 backdrop-blur-md p-4 md:p-6"
       onClick={onClose}
     >
       <div
         role="dialog"
         aria-modal="true"
         aria-labelledby={`${project.id}-title`}
-        className="relative mx-auto flex max-h-[92vh] w-full max-w-6xl flex-col overflow-hidden rounded-[28px] border border-[rgba(255,255,255,0.08)] bg-[rgba(18,14,10,0.98)] shadow-[0_30px_120px_rgba(0,0,0,0.45)]"
+        className="relative mx-auto flex max-h-[92vh] w-full max-w-6xl flex-col overflow-hidden rounded-[28px] border border-border bg-card shadow-[0_30px_120px_rgba(0,0,0,0.45)]"
         onClick={(event) => event.stopPropagation()}
       >
         <div
@@ -60,7 +60,7 @@ export default function ProjectDetailModal({ project, onClose }: ProjectDetailMo
         <button
           type="button"
           onClick={onClose}
-          className="absolute right-4 top-4 z-10 flex h-11 w-11 items-center justify-center rounded-full border border-[rgba(255,255,255,0.08)] bg-[rgba(10,8,6,0.78)] text-fg-muted transition-colors duration-200 hover:border-primary hover:text-primary"
+          className="absolute right-4 top-4 z-10 flex h-11 w-11 items-center justify-center rounded-full border border-border bg-bg text-fg-muted transition-colors duration-200 hover:border-primary hover:text-primary"
           aria-label="Close project details"
         >
           <svg
@@ -78,8 +78,8 @@ export default function ProjectDetailModal({ project, onClose }: ProjectDetailMo
         </button>
 
         <div className="grid max-h-[92vh] lg:grid-cols-[1.1fr_0.9fr]">
-          <div className="border-b border-[rgba(255,255,255,0.06)] p-5 md:p-8 lg:border-b-0 lg:border-r">
-            <div className="group/gallery relative overflow-hidden rounded-[24px] border border-[rgba(255,255,255,0.06)] bg-[rgba(255,255,255,0.02)]">
+          <div className="border-b border-border p-5 md:p-8 lg:border-b-0 lg:border-r">
+            <div className="group/gallery relative overflow-hidden rounded-[24px] border border-border bg-surface">
               <div className="aspect-[16/10]">
                 <AppImage
                   src={activeImage.src}
@@ -95,14 +95,14 @@ export default function ProjectDetailModal({ project, onClose }: ProjectDetailMo
                 <>
                   <button
                     onClick={() => setActiveImageIndex((prev) => (prev === 0 ? project.gallery.length - 1 : prev - 1))}
-                    className="absolute left-4 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-[rgba(255,255,255,0.1)] bg-[rgba(10,8,6,0.6)] text-fg opacity-0 backdrop-blur-md transition-all hover:bg-[rgba(255,255,255,0.1)] group-hover/gallery:opacity-100"
+                    className="absolute left-4 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-[var(--color-surface-hover)] bg-bg/60 text-fg opacity-0 backdrop-blur-md transition-all hover:bg-[var(--color-surface-hover)] group-hover/gallery:opacity-100"
                     aria-label="Previous image"
                   >
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
                   </button>
                   <button
                     onClick={() => setActiveImageIndex((prev) => (prev === project.gallery.length - 1 ? 0 : prev + 1))}
-                    className="absolute right-4 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-[rgba(255,255,255,0.1)] bg-[rgba(10,8,6,0.6)] text-fg opacity-0 backdrop-blur-md transition-all hover:bg-[rgba(255,255,255,0.1)] group-hover/gallery:opacity-100"
+                    className="absolute right-4 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-[var(--color-surface-hover)] bg-bg/60 text-fg opacity-0 backdrop-blur-md transition-all hover:bg-[var(--color-surface-hover)] group-hover/gallery:opacity-100"
                     aria-label="Next image"
                   >
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18l6-6-6-6"/></svg>
@@ -123,7 +123,7 @@ export default function ProjectDetailModal({ project, onClose }: ProjectDetailMo
                     className={`overflow-hidden rounded-[18px] border transition-all duration-200 ${
                       isActive
                         ? 'border-primary shadow-[0_0_0_1px_rgba(255,107,43,0.18)]'
-                        : 'border-[rgba(255,255,255,0.06)] hover:border-[rgba(255,107,43,0.28)]'
+                        : 'border-border hover:border-[rgba(255,107,43,0.28)]'
                     }`}
                     aria-pressed={isActive}
                     aria-label={`Show ${image.title}`}
@@ -166,14 +166,14 @@ export default function ProjectDetailModal({ project, onClose }: ProjectDetailMo
             </div>
 
             <div className="mt-8 space-y-5">
-              <div className="rounded-[22px] border border-[rgba(255,255,255,0.06)] bg-[rgba(255,255,255,0.02)] p-5">
+              <div className="rounded-[22px] border border-border bg-surface p-5">
                 <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-primary">
                   Overview
                 </p>
                 <p className="mt-3 text-sm leading-relaxed text-fg-muted">{project.overview}</p>
               </div>
 
-              <div className="rounded-[22px] border border-[rgba(255,255,255,0.06)] bg-[rgba(255,255,255,0.02)] p-5">
+              <div className="rounded-[22px] border border-border bg-surface p-5">
                 <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-primary">
                   Why it matters
                 </p>
@@ -189,7 +189,7 @@ export default function ProjectDetailModal({ project, onClose }: ProjectDetailMo
                 {project.features.map((feature) => (
                   <div
                     key={feature}
-                    className="flex items-start gap-3 rounded-[18px] border border-[rgba(255,255,255,0.06)] bg-[rgba(255,255,255,0.02)] px-4 py-3"
+                    className="flex items-start gap-3 rounded-[18px] border border-border bg-surface px-4 py-3"
                   >
                     <span
                       className="mt-1 block h-2.5 w-2.5 rounded-full"
@@ -228,7 +228,7 @@ export default function ProjectDetailModal({ project, onClose }: ProjectDetailMo
                   rel="noopener noreferrer"
                   className="btn-outline inline-flex items-center gap-3 text-sm transition-all duration-200"
                   aria-label={`Visit ${project.title} live site`}
-                  style={{ borderColor: 'rgba(255,255,255,0.1)', color: 'var(--color-fg)' }}
+                  style={{ borderColor: 'var(--color-border)', color: 'var(--color-fg)' }}
                 >
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line>

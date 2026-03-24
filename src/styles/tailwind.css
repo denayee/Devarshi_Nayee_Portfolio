@@ -17,8 +17,34 @@
   --color-fg-muted: #8a7f74;
   --color-border: rgba(255, 255, 255, 0.07);
   --color-border-warm: rgba(255, 107, 43, 0.3);
+  --color-surface: rgba(255, 255, 255, 0.02);
+  --color-surface-hover: rgba(255, 255, 255, 0.06);
+  --header-bg-closed: rgba(13, 11, 8, 0.75);
+  --header-bg-open: rgba(13, 11, 8, 0.95);
+  --header-bg-unscrolled: rgba(13, 11, 8, 0.4);
   --font-mono: 'JetBrains Mono', monospace;
   --font-sans: 'DM Sans', sans-serif;
+}
+
+.light {
+  --color-bg: #faf8f5;
+  --color-bg-secondary: #f0ebe4;
+  --color-bg-card: rgba(250, 248, 245, 0.85);
+  --color-primary: #f05a1a;
+  --color-primary-dim: rgba(240, 90, 26, 0.15);
+  --color-accent: #e6b13e;
+  --color-accent-dim: rgba(230, 177, 62, 0.12);
+  --color-teal: #05b586;
+  --color-teal-dim: rgba(5, 181, 134, 0.12);
+  --color-fg: #1a1714;
+  --color-fg-muted: #645b53;
+  --color-border: rgba(0, 0, 0, 0.07);
+  --color-border-warm: rgba(240, 90, 26, 0.3);
+  --color-surface: rgba(0, 0, 0, 0.03);
+  --color-surface-hover: rgba(0, 0, 0, 0.07);
+  --header-bg-closed: rgba(250, 248, 245, 0.75);
+  --header-bg-open: rgba(250, 248, 245, 0.95);
+  --header-bg-unscrolled: rgba(250, 248, 245, 0.4);
 }
 
 /* ─── Base Reset ─── */
@@ -199,7 +225,7 @@ body {
 /* ─── Buttons ─── */
 .btn-primary {
   background: var(--color-primary);
-  color: #0d0b08;
+  color: var(--color-bg);
   font-weight: 800;
   font-family: var(--font-sans);
   padding: 14px 36px;

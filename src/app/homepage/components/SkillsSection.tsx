@@ -374,7 +374,7 @@ export default function SkillsSection() {
           ))}
         </div>
 
-        <div className="mt-16 py-6 border-y border-[rgba(255,255,255,0.06)] overflow-hidden reveal-hidden">
+        <div className="mt-16 py-6 border-y border-border overflow-hidden reveal-hidden">
           <div className="marquee-track gap-8 flex items-center">
             {[...Array(3)].flatMap(() =>
               FEATURED_TOOLS.map((tech, index) => (

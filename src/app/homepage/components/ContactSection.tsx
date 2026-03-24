@@ -119,14 +119,14 @@ export default function ContactSection() {
                   href={href}
                   target={href.startsWith('http') ? '_blank' : undefined}
                   rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                  className="flex items-center gap-4 p-4 border border-[rgba(255,255,255,0.06)] rounded-sm group transition-all duration-300 hover:border-opacity-60"
+                  className="flex items-center gap-4 p-4 border border-border rounded-sm group transition-all duration-300 hover:border-opacity-60"
                   style={{ transition: 'border-color 0.3s ease, background 0.3s ease' }}
                   onMouseEnter={(e) => {
                     (e.currentTarget as HTMLAnchorElement).style.borderColor = `${color}40`;
                     (e.currentTarget as HTMLAnchorElement).style.background = `${color}05`;
                   }}
                   onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLAnchorElement).style.borderColor = 'rgba(255,255,255,0.06)';
+                    (e.currentTarget as HTMLAnchorElement).style.borderColor = 'var(--color-border)';
                     (e.currentTarget as HTMLAnchorElement).style.background = 'transparent';
                   }}
                   aria-label={`${label}: ${value}`}
@@ -182,7 +182,7 @@ export default function ContactSection() {
               <div className="corner-accent corner-accent-tl" aria-hidden="true" />
               <div className="corner-accent corner-accent-br" aria-hidden="true" />
 
-              <div className="p-8 border border-[rgba(255,255,255,0.06)] rounded-sm bg-[rgba(255,255,255,0.01)]">
+              <div className="p-8 border border-border rounded-sm bg-surface">
                 <div className="grid sm:grid-cols-2 gap-5 mb-5">
                   <div>
                     <label htmlFor="name" className="font-mono text-xs text-fg-muted mb-2 block uppercase tracking-widest">

@@ -124,7 +124,7 @@ function SystemsBoard() {
         className="absolute inset-0 opacity-25"
         style={{
           backgroundImage:
-            'linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px)',
+            'linear-gradient(var(--color-border) 1px, transparent 1px), linear-gradient(90deg, var(--color-border) 1px, transparent 1px)',
           backgroundSize: '34px 34px',
         }}
         aria-hidden="true"
@@ -165,12 +165,12 @@ function SystemsBoard() {
           </div>
         </div>
 
-        <div className="relative mx-auto mb-8 h-[330px] max-w-[440px]">
+        <div className="relative mx-auto mb-8 h-[330px] w-full max-w-[440px] overflow-hidden sm:overflow-visible">
           <div
             className="absolute left-1/2 top-[18%] bottom-[18%] w-px -translate-x-1/2"
             style={{
               background:
-                'linear-gradient(180deg, transparent, rgba(255,255,255,0.18), transparent)',
+                'linear-gradient(180deg, transparent, var(--color-surface-hover), transparent)',
             }}
             aria-hidden="true"
           />
@@ -178,13 +178,13 @@ function SystemsBoard() {
             className="absolute left-[18%] right-[18%] top-1/2 h-px -translate-y-1/2"
             style={{
               background:
-                'linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent)',
+                'linear-gradient(90deg, transparent, var(--color-surface-hover), transparent)',
             }}
             aria-hidden="true"
           />
           <div
             className="absolute left-1/2 top-1/2 h-60 w-60 -translate-x-1/2 -translate-y-1/2 rounded-full border"
-            style={{ borderColor: 'rgba(255,255,255,0.08)' }}
+            style={{ borderColor: 'var(--color-border)' }}
             aria-hidden="true"
           />
           <div
@@ -215,14 +215,14 @@ function SystemsBoard() {
               className="relative flex h-32 w-32 items-center justify-center rounded-full border"
               style={{
                 borderColor: 'rgba(255,107,43,0.25)',
+                boxShadow: '0 4px 30px rgba(0,0,0,0.1)',
                 background:
-                  'radial-gradient(circle, rgba(255,107,43,0.16), rgba(13,11,8,0.94) 72%)',
-                boxShadow: '0 0 60px rgba(255,107,43,0.12)',
+                  'radial-gradient(circle, rgba(255,107,43,0.16), var(--color-bg) 72%)',
               }}
             >
               <div
                 className="absolute inset-[14px] rounded-full border"
-                style={{ borderColor: 'rgba(255,255,255,0.08)' }}
+                style={{ borderColor: 'var(--color-border)' }}
                 aria-hidden="true"
               />
               <div className="text-center">
@@ -244,10 +244,10 @@ function SystemsBoard() {
               style={{ top: node.top, left: node.left, transform: 'translate(-50%, -50%)' }}
             >
               <div
-                className="min-w-[122px] rounded-sm border px-3 py-2.5 backdrop-blur-md"
+                className="min-w-[100px] sm:min-w-[122px] rounded-sm border px-3 py-2.5 backdrop-blur-md"
                 style={{
                   borderColor: `${node.color}35`,
-                  background: `linear-gradient(135deg, ${node.color}18, rgba(13,11,8,0.9))`,
+                  background: `linear-gradient(135deg, ${node.color}18, var(--color-bg))`,
                   animation: `float 9s cubic-bezier(0.45, 0.05, 0.55, 0.95) ${node.delay} infinite`,
                 }}
               >
@@ -274,7 +274,7 @@ function SystemsBoard() {
           {SIGNAL_NOTES.map((note) => (
             <div
               key={note.label}
-              className="rounded-sm border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.02)] px-4 py-3"
+              className="rounded-sm border border-border bg-surface px-4 py-3"
             >
               <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-fg-muted">
                 {note.label}
@@ -351,7 +351,7 @@ export default function AboutSection() {
           </div>
         </div>
 
-        <div className="mb-20 grid grid-cols-2 gap-8 border-b border-[rgba(255,255,255,0.06)] pb-20 md:grid-cols-4">
+        <div className="mb-20 grid grid-cols-2 gap-8 border-b border-border pb-20 md:grid-cols-4">
           <StatBlock
             value={7}
             suffix="+"
@@ -405,7 +405,7 @@ export default function AboutSection() {
               {QUICK_FACTS.map(({ label, value }) => (
                 <div
                   key={label}
-                  className="group flex items-center gap-2 rounded-sm border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.02)] px-4 py-2 transition-all duration-300 hover:border-primary"
+                  className="group flex items-center gap-2 rounded-sm border border-border bg-surface px-4 py-2 transition-all duration-300 hover:border-primary"
                 >
                   <span className="font-mono text-xs text-fg-muted">{label}:</span>
                   <span className="font-mono text-xs text-primary">{value}</span>

@@ -9,9 +9,9 @@ export default function Footer() {
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
           {/* Logo + Brand */}
           <div className="flex items-center gap-2">
-            <AppLogo size={28} iconName="CodeBracketIcon" />
+            {/* <AppLogo size={28} iconName="CodeBracketIcon" /> */}
             <span className="font-mono text-xs text-fg-muted tracking-widest">
-              Devarshi © {new Date()?.getFullYear()}
+              Devarshi Nayee © {new Date()?.getFullYear()}
             </span>
           </div>
 
@@ -27,20 +27,13 @@ export default function Footer() {
               GitHub
             </a>
             <a
-              href="https://linkedin.com/in/devarshi"
+              href="https://www.linkedin.com/in/devarshi-nayee-b1aa63279/"
               target="_blank"
               rel="noopener noreferrer"
               className="font-mono text-sm text-fg-muted hover:text-primary transition-colors duration-200"
               aria-label="LinkedIn profile"
             >
               LinkedIn
-            </a>
-            <a
-              href="mailto:devarshi@email.com"
-              className="font-mono text-sm text-fg-muted hover:text-primary transition-colors duration-200"
-              aria-label="Send email"
-            >
-              Email
             </a>
           </div>
 
@@ -60,7 +53,7 @@ export default function Footer() {
             </a>
             {/* LinkedIn */}
             <a
-              href="https://linkedin.com/in/devarshi"
+              href="https://www.linkedin.com/in/devarshi-nayee-b1aa63279/"
               target="_blank"
               rel="noopener noreferrer"
               className="w-9 h-9 rounded-lg border border-[rgba(255,255,255,0.08)] flex items-center justify-center text-fg-muted hover:text-primary hover:border-primary transition-all duration-200"

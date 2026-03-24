@@ -90,7 +90,7 @@ const PROJECT_CONTENT: ProjectContent[] = [
   accent: '#FF6B6B',
   images: [
     {
-      src: '/test-image.png',
+      src: 'public/assets/images/StackIt.png',
       title: 'Q&A Interface',
       caption: 'Main discussion and question listing UI'
     }
@@ -346,7 +346,7 @@ const PROJECT_CONTENT: ProjectContent[] = [
   ],
   stack: ['Python', 'Machine Learning', 'NLP'],
   accent: '#9B5DE5',
-  liveUrl : 'https://gan-ai-story-converter.vercel.app/',
+  liveUrl : 'https://gan-ai-story-converter-production-0665.up.railway.app/',
   images: [
     {
       src: '/assets/images/gan ai story converter_1.png', 

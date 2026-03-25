@@ -10,7 +10,9 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
-    const emailSubject = subject || `New Portfolio Contact from ${name}`;
+    const emailSubject = subject 
+      ? `Portfolio Contact: ${subject} (from ${name})` 
+      : `New Portfolio Contact from ${name}`;
 
     // Determine secure connection setup based on your configuration
     const isSecure = process.env.MAIL_PORT === '465' || process.env.MAIL_USE_TLS === 'true';
@@ -31,7 +33,7 @@ export async function POST(request: Request) {
       to: process.env.MAIL_USERNAME, // Send the message to yourself! 
       replyTo: email, // Reply-to the user who filled the form on the website
       subject: emailSubject,
-      text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
+      text: `Name: ${name}\nEmail: ${email}\nSubject: ${subject || 'N/A'}\n\nMessage:\n${message}`,
     };
 
     // Send the email using the transporter

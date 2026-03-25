@@ -62,9 +62,7 @@ export default function ContactSection() {
             className="font-black text-fg"
             style={{ fontSize: 'clamp(2.5rem, 6vw, 5rem)', letterSpacing: '-0.04em', lineHeight: '0.95' }}
           >
-            Let&apos;s build<br />
-            <span className="text-gradient-warm">something</span><br />
-            together.
+            Let&apos;s build <span className="text-gradient-warm">something</span> together.
           </h2>
         </div>
 
@@ -90,6 +88,17 @@ export default function ContactSection() {
                   value: 'nayeedevarshi@email.com',
                   href: 'mailto:nayeedevarshi@email.com',
                   color: '#FF6B2B',
+                },
+                {
+                  icon: (
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                    </svg>
+                  ),
+                  label: 'Phone',
+                  value: '+91 70969 64496',
+                  href: 'tel:+917096964496',
+                  color: '#4CC9F0',
                 },
                 {
                   icon: (

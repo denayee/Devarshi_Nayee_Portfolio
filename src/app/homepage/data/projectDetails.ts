@@ -72,6 +72,7 @@ const PROJECT_CONTENT: ProjectContent[] = [
   
   // 💡 TEMPLATE: Uncomment and copy this block for each GitHub repository you want to customize.
   // The 'aliases' array must include the exact name of your GitHub repository.
+
   {
   id: 'stackit_qa_platform',
   aliases: ['StackIt-A-Minimal-Q-A-Forum-Platform-dev '],
@@ -355,7 +356,38 @@ const PROJECT_CONTENT: ProjectContent[] = [
       caption: 'AI-generated story interface'
     }
   ]
-}
+},
+ {
+  id: 'Shree-Pragya-Insurance-Site',
+  aliases: ['krupesh_nayee_portfolio'],
+  title: 'Krupesh Nayee – Insurance & Investment Advisor Website',
+  headline: 'A modern 3D portfolio website for insurance and financial advisory services.',
+  summary: 'A high-performance, SEO-friendly website built using Next.js and TypeScript to showcase insurance services, financial planning solutions, and generate client leads.',
+  overview: 'This website represents Krupesh Nayee, an experienced investment advisor from Shree Pragya Insurance (since 1990). It highlights insurance products, wealth creation strategies, and financial planning services with a modern UI and optimized performance using Next.js.',
+  impact: 'Enhances digital presence, improves client trust, and increases lead generation through a fast, scalable, and professional web platform.',
+  features: [
+    '3D modern UI with Fibonacci spiral hero section',
+    'Interactive service spinner (circular rotating layout)',
+    'Contact form with Google Sheets integration (via API)',
+    'Terms & Conditions consent tracking system',
+    'Visitor tracking (IP, location, timestamp in JSON)',
+    'WhatsApp click-to-chat integration',
+    'SEO optimization with Next.js',
+    'Fast performance with server-side rendering (SSR)',
+    'Fully responsive design',
+    'Cookie consent and privacy compliance system'
+  ],
+  liveUrl: 'https://krupesh-nayee-portfolio.vercel.app',
+  stack: ['Next.js', 'TypeScript', 'Tailwind CSS'],
+  accent: '#27187E',
+  images: [
+    {
+      src: '/assets/images/ShreyPragya.png',  
+      title: 'Homepage UI',
+      caption: '3D hero section with Fibonacci layout and interactive elements'
+    }
+  ]
+  }
   
 ];
 

@@ -9,10 +9,10 @@ export async function GET() {
   }
 
   try {
-    // 1. Fetch repos with Next.js Cache tagging (caches until the webhook blasts it)
+    // 1. Fetch repos with Next.js Cache tagging (caches for 5 minutes)
     const res = await fetch('https://api.github.com/users/denayee/repos?sort=updated&per_page=12', {
       headers,
-      next: { tags: ['github-projects'], revalidate: 86400 } // fallback revalidation of 24hrs
+      next: { tags: ['github-projects'], revalidate: 300 } // fallback revalidation of 5 minutes
     });
 
     if (!res.ok) {
@@ -25,7 +25,6 @@ export async function GET() {
     const data = await res.json();
     let filtered = data
       .filter((repo: any) => !repo.name.startsWith('.') && repo.description)
-      .sort((a: any, b: any) => b.stargazers_count - a.stargazers_count)
       .slice(0, 9);
       
     // 2. Hydrate language tags for each repo
@@ -35,7 +34,7 @@ export async function GET() {
           const langUrl = repo.languages_url || `https://api.github.com/repos/denayee/${repo.name}/languages`;
           const langRes = await fetch(langUrl, { 
              headers,
-             next: { tags: ['github-projects'], revalidate: 86400 }
+             next: { tags: ['github-projects'], revalidate: 300 }
           });
           
           if (langRes.ok) {

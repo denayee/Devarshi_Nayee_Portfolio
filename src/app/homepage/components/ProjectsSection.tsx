@@ -44,6 +44,9 @@ function ProjectCard({
   const langColor = repo.language ? LANG_COLORS[repo.language] || '#8A7F74' : '#8A7F74';
   const cardRef = useRef<HTMLDivElement>(null);
 
+  const projectDetail = getProjectDetailFromRepo(repo);
+  const liveUrl = projectDetail?.liveUrl;
+
   const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current) return;
     const rect = cardRef.current.getBoundingClientRect();
@@ -107,29 +110,55 @@ function ProjectCard({
             )}
           </div>
         </div>
-        <a
-          href={repo.html_url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="w-8 h-8 border border-border flex items-center justify-center text-fg-muted hover:text-primary hover:border-primary transition-all duration-200 rounded-sm group/link"
-          aria-label={`Open ${repo.name} on GitHub`}
-          onClick={(event) => event.stopPropagation()}
-          onKeyDown={(event) => event.stopPropagation()}
-        >
-          <svg
-            width="13"
-            height="13"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            aria-hidden="true"
+        <div className="flex items-center gap-2">
+          {liveUrl && (
+            <a
+              href={liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-mono text-xs px-3 py-1.5 rounded-sm flex items-center gap-2 transition-all duration-200 hover:brightness-125 hover:shadow-sm"
+              style={{
+                background: `${langColor}12`,
+                border: `1px solid ${langColor}28`,
+                color: langColor,
+              }}
+              aria-label={`Open live demo for ${repo.name}`}
+              title="View Live Demo"
+              onClick={(event) => event.stopPropagation()}
+              onKeyDown={(event) => event.stopPropagation()}
+            >
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style={{ background: langColor }}></span>
+                <span className="relative inline-flex rounded-full h-2 w-2" style={{ background: langColor }}></span>
+              </span>
+              Live
+            </a>
+          )}
+          <a
+            href={repo.html_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-8 h-8 border border-border flex items-center justify-center text-fg-muted hover:text-primary hover:border-primary transition-all duration-200 rounded-sm group/link"
+            aria-label={`Open ${repo.name} on GitHub`}
+            title="View Source on GitHub"
+            onClick={(event) => event.stopPropagation()}
+            onKeyDown={(event) => event.stopPropagation()}
           >
-            <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
-            <polyline points="15 3 21 3 21 9" />
-            <line x1="10" y1="14" x2="21" y2="3" />
-          </svg>
-        </a>
+            <svg
+              width="13"
+              height="13"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              aria-hidden="true"
+            >
+              <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
+              <polyline points="15 3 21 3 21 9" />
+              <line x1="10" y1="14" x2="21" y2="3" />
+            </svg>
+          </a>
+        </div>
       </div>
 
       <p className="text-fg-muted text-sm leading-relaxed mb-5 line-clamp-3">

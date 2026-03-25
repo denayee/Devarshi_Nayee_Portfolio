@@ -112,6 +112,7 @@ const PROJECT_CONTENT: ProjectContent[] = [
   ],
   stack: ['React', 'Tailwind CSS', 'JavaScript'],
   accent: '#FFD166',
+  liveUrl : 'https://devarshi-nayee-portfolio-zeta.vercel.app/homepage',
   images: [
     {
       src: '/assets/images/portfolio.png',

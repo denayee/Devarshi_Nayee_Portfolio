@@ -10,7 +10,8 @@ export async function GET() {
 
   try {
     // 1. Fetch repos with Next.js Cache tagging (caches for 5 minutes)
-    const res = await fetch('https://api.github.com/users/denayee/repos?sort=updated&per_page=12', {
+    const githubApiUrl = process.env.GITHUB_API_URL || 'https://api.github.com/users/denayee/repos?sort=updated&per_page=12';
+    const res = await fetch(githubApiUrl, {
       headers,
       next: { tags: ['github-projects'], revalidate: 300 } // fallback revalidation of 5 minutes
     });
